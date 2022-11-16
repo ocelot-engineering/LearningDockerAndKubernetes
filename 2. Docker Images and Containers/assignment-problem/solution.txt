@@ -1,0 +1,58 @@
+1. Build images
+# node app
+cd node-app
+docker build -t node-app:latest .
+
+# python app
+cd python-app
+docker build -t python-app:latest .
+
+2. Launch apps
+# node
+docker image ls
+docker run -p 3000:3000 9cd22d3d7793
+docker ps
+docker stop suspicious_hoover
+
+# python
+docker image ls
+docker run -it 5c49ebfd905a
+
+3. Restart containers
+# node
+docker ps -a
+docker start suspicious_hoover
+docker stop suspicious_hoover
+
+# python
+docker ps -a
+docker start -ia stoic_ganguly
+docker stop stoic_ganguly
+
+4. Clean up containers and images
+docker ps -a
+docker rm suspicious_hoover stoic_ganguly
+docker ps -a
+docker image ls
+docker image prune # didn't work
+docker rmi 9cd22d3d7793 5c49ebfd905a
+
+5. Build images with tags
+# node app
+cd node-app
+docker build -t node-app:latest .
+
+# python app
+cd python-app
+docker build -t python-app:latest .
+
+6. Run containers and ensure they are removed once stopped
+docker image ls
+
+# node
+docker run --rm -p 3000:3000 9cd22d3d7793
+docker stop thirsty_edison
+
+# python
+docker run --rm -it 5c49ebfd905a
+docker ps

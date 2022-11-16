@@ -1,0 +1,18 @@
+docker build .
+docker image ls # list all images
+docker run -p 3000:3000 <image hash>
+docker ps # see running processes
+docker stop
+
+docker build -t goals:latest . # builds the the image with the name goals and tag latest
+docker run node     # runs container based on node image. Will download if not available locally
+docker run -it node # -it means "interactive", so it will open a expose a container with a node session
+docker run --name <image hash> # assigns a custom name to a container
+docker start <name> # restarts a container
+docker start -ai <name> # restarts a container and makes it interactive and attaches
+docker logs <name> # allows us to see the outputs of an deattached container
+docker attach <container> # attaches an already runnning container
+docker rm <name> # removes container
+docker rmi <imageid> # removes images
+docker image prune # removes all unused images (no container relaying on it)
+docker cp <source> <dest> # copies files or directories to and from running docker containers
