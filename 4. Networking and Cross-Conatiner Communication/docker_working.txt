@@ -1,0 +1,24 @@
+
+# create network
+docker network create favourite-net
+
+# build and create app
+docker build -t favourite-node .
+docker run --name favourite-app --network favourite-net -p 3000:3000 --rm -d favourite-node
+
+# run mongo db container using official mongo db image from docker hub
+docker run --name mongodb --network favourite-net --rm -d mongo 
+
+
+# HTTP requests
+GET http://localhost:3000/movies
+GET http://localhost:3000/people
+GET http://localhost:3000/favorites
+POST http://localhost:3000/favorites
+body raw JSON:
+{
+    "name": "A New Hope",
+    "type": "movie",
+    "url": "https://swapi.dev/api/films/1/"
+}
+GET http://localhost:3000/favorites

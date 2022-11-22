@@ -17,6 +17,7 @@ docker run -p 3000:80 # run and publish port 80 on port 3000
 docker run --rm # remove container when it stops
 docker run -v <volume name>:<volume path> # create named volume and make accessible to container
 docker run -p 3000:80 --name feedback-app --rm -d -v feedback:/app/feedback feedback:volumes
+docker run <container name> --network <network name> # run container in network
 
 # Example of docker run
 docker run -d --rm -p 3000:80 --name feedback-app --env PORT=80 -v feedback:/app/feedback -v "$(pwd):/app:ro" -v /app/node_modules -v /app/temp feedback:env 
@@ -31,6 +32,15 @@ docker run -d --rm -p 3000:80 --name feedback-app --env PORT=80 -v feedback:/app
 -v /app/temp              # create anonymous volume /app/temp (overwrites bind mount for temp)
 feedback:env              # run from image REPO=feedback, TAG=env
 
+# volumes
+docker volume ls # list all volumes
+docker volume rm <volume name> # delete a volume
+docker volume prune # delete all unused volumes
+docker volume inspect <vol name> # look at details such as read only, create date, etc
+
+# networks
+docker network create <network-name> # create docker network
+host.docker.internal # resolves ip to localhost
 
 # other
 docker start <name> # restarts a container
@@ -42,8 +52,5 @@ docker rmi <imageid> # removes images
 docker image prune # removes all unused images (no container relaying on it)
 docker cp <source> <dest> # copies files or directories to and from running docker containers
 docker logs <container>
-docker volume ls # list all volumes
-docker volume rm <volume name> # delete a volume
-docker volume prune # delete all unused volumes
-docker volume inspect <vol name> # look at details such as read only, create date, etc
+
 
