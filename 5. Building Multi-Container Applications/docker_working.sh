@@ -13,10 +13,20 @@ docker ps # check container is running
 # add named volume to store logs "-v feedback:/app/feedback"
 # set bind mount -v "$(pwd):/app:ro" to read app code
 # create anonymous volume to overwrite node_modules directory
+# chmod -R 775 backend # grant permission to live update code
 cd backend
+# update localhost to host.docker.internal for localhost, but given it's running in network update with container name 
 docker build -t goals-backend . # build image
 docker image ps
-docker run --rm -d --name goals-backend --network goals-net -p 80:80 --env PORT=80 -v logs:/app/logs -v "$(pwd):/app:ro" -v /app/node_modules  goals-backend:latest
+docker run --rm -d --name goals-backend --network goals-net -p 80:80 -v logs:/app/logs -v "$(pwd):/app:ro" -v /app/node_modules goals-backend:latest
 
 # 4. Dockerise frontend with live source code update
-cd ..
+# Publish on port 3000 to see the fontend
+# add -it to run in interactive mode
+# Could update all the localhost mentions in app.js to goals-backend since it is running in a network, but this wont work
+#  given react code is running in the browser rather than within the container. 
+# Also, it doesn't make sense to run the frontend in the docker network since the code of a react application is run browser
+#  side rather than server side. Therefore we should pubish the ports of the backend so the frontend can interact with it
+cd ../frontend
+docker build -t goals-frontend .
+docker run -it --rm -d --name goals-frontend --network goals-net -p 3000:3000 goals-frontend:latest
