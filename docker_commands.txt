@@ -42,6 +42,12 @@ docker volume inspect <vol name> # look at details such as read only, create dat
 docker network create <network-name> # create docker network
 host.docker.internal # resolves ip to localhost
 
+# compose
+docker compose up
+-d # detached mode
+docker compose down
+-v deletes volumes with docker compose down
+
 # other
 docker start <name> # restarts a container
 docker start -ai <name> # restarts a container and makes it interactive and attaches
@@ -52,5 +58,4 @@ docker rmi <imageid> # removes images
 docker image prune # removes all unused images (no container relaying on it)
 docker cp <source> <dest> # copies files or directories to and from running docker containers
 docker logs <container>
-
 

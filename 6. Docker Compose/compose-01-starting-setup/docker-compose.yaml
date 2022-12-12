@@ -1,0 +1,33 @@
+version: "3.8"
+services: 
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db
+    # environment: directly in yaml
+    #   - MONGO_INITDB_ROOT_USERNAME=admin
+    #   - MONGO_INITDB_ROOT_USERNAME=secret
+    env_file: # using file instead
+      - ./env/mongo.env
+    # networks: # docker compose will create a default network for all services in this yaml. So no need to define a new one
+    #   - goals-net
+  backend:
+    build: ./backend
+    # build:
+    #   context: /backend
+    #   dockerfile: Dockerfile-dev # using a dockerfile with a different name
+    ports:
+      - "80:80"
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on: # run mongodb before running backend
+      - mongodb
+  # frontend:
+
+volumes:
+  data:
+  logs:
