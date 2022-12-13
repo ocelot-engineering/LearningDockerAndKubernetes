@@ -2,6 +2,7 @@ version: "3.8"
 services: 
   mongodb:
     image: "mongo"
+    container_name: mongodb
     volumes:
       - data:/data/db
     # environment: directly in yaml
@@ -26,7 +27,16 @@ services:
       - ./env/backend.env
     depends_on: # run mongodb before running backend
       - mongodb
-  # frontend:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
 
 volumes:
   data:
