@@ -26,3 +26,4 @@ kubectl delete service first-app
 kubectl delete deployment first-app
 
 # Declarative approach
+kubectl apply -f=deployment.yaml

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+spec: # configuration of the deployment
+  replicas: 1
+  selector: # selects the pods it should control
+    matchLabels: 
+      app: second-app
+      tier: backend
+  template: # pod template, don't have to add kind: pod
+    metadata:
+      labels:
+        app: second-app
+        tier: backend
+    spec: # configuration of the individual pod
+      containers:
+        - name: second-node
+          image: parrot7910/kub-first-app:2
+        # - name: ...
+        #   image: ...
+
