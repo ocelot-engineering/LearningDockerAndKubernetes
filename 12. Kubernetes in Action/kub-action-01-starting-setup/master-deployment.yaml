@@ -1,3 +1,18 @@
+# Service
+apiVersion: v1
+kind: Service # service object exposes paths to the cluster or to the outside world
+metadata:
+  name: backend
+spec:
+  selector:
+    app: second-app
+  ports:
+    - protocol: 'TCP'
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+---
+# Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,10 +34,5 @@ spec: # configuration of the deployment
       containers:
         - name: second-node
           image: parrot7910/kub-first-app:2
-          imagePullPolicy: Always
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            periodSeconds: 3
-            initialDelaySeconds: 5
+        # - name: ...
+        #   image: ...
