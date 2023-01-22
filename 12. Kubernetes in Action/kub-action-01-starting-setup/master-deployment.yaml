@@ -33,6 +33,6 @@ spec: # configuration of the deployment
     spec: # configuration of the individual pod
       containers:
         - name: second-node
-          image: parrot7910/kub-first-app:2
+          image: <dockerhubname>/kub-first-app:2
         # - name: ...
         #   image: ...
