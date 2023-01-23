@@ -28,11 +28,11 @@ kubectl delete deployment first-app
 # Declarative approach ----------------------------------------
 # deploy deployment
 kubectl get pods
-kubectl apply -f=service.yaml # deploy service
+kubectl apply -f service.yaml # deploy service
 kubectl get services
 minikube service backend # expose the service
 
-kubectl delete -f=deployment.yaml -f=service.yaml # delete deployment and service
-kubectl apply -f=master-deployment.yaml # deploy both service and deployment
+kubectl delete -f deployment.yaml -f service.yaml # delete deployment and service
+kubectl apply -f master-deployment.yaml # deploy both service and deployment
 minikube service backend # expose the service
 kubectl delete -f=master-deployment.yaml
